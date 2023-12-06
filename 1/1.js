@@ -1,9 +1,5 @@
 import { open } from 'node:fs/promises';
 
-async function readCalibrationFile() {
-    return await open('./input.data');
-}
-
 const spelledValidDigits = [
     {name: 'one', value: 1},
     {name: 'two', value: 2},
@@ -20,15 +16,15 @@ function getValueFromCalibrationLine(calibrationLine) {
     let firstDigit;
     let lastDigit;
     for (let i = 0; i < calibrationLine.length; i++) {
-        console.log(`index is ${i}`);
+        // console.log(`index is ${i}`);
         if (isNaN(firstDigit)) { // first digit hasnt been found yet
-            console.log(`calibrationLine[i] is ${calibrationLine[i]}`);
+            // console.log(`calibrationLine[i] is ${calibrationLine[i]}`);
             if (!isNaN(calibrationLine[i])) {
-                console.log(`calibrationLine[i] is a digit`);
+                // console.log(`calibrationLine[i] is a digit`);
                 firstDigit = calibrationLine[i];
             } else {
                 // calibrationLine[i] is not a number
-                console.log(`calibrationLine[i] is NOT a digit`);
+                // console.log(`calibrationLine[i] is NOT a digit`);
                 for (let j = 0; j < spelledValidDigits.length; j++) {
                     const validDigitName = spelledValidDigits[j].name;
                     // console.log(`j is ${j}`);
@@ -93,7 +89,7 @@ function runTests() {
 }
 
 async function calculateCalibration() {
-    const calibrationData = await readCalibrationFile();
+    const calibrationData = await open('./input.data');
     let totalCalibration = 0;
     for await (const line of calibrationData.readLines()) {
         const calibrationLineValue = getValueFromCalibrationLine(line);
